@@ -1,0 +1,7 @@
+hbutton	KEYWORD1
+Button	KEYWORD1
+scanState	KEYWORD2
+setPinDelay	KEYWORD2
+bPush	KEYWORD2
+bDouble	KEYWORD2
+bHold	KEYWORD2
