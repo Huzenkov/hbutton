@@ -24,10 +24,9 @@ void Button::scanState(){
           bDouble = 0;
         }
 
-      if(_trigHold == 0) _lastHold = millis();
-
-      if(millis() < _lastHold + _delayHold && _trigHold == 0)
+      if(_trigHold == 0) 
         {
+          _lastHold = millis();
           bHold = 0;
           _trigHold = 1;
         }
@@ -35,7 +34,7 @@ void Button::scanState(){
         {
           bHold = 1;
           _lastHold = millis();
-          _trigHold = 0;
+          _trigHold = 0;      // закомментировать чтобы постоянно возвращало TRUE
           _trigPush2 = 0;
         }
       if(_trigDouble == 1 && millis() < _lastDouble + _delayDouble)
@@ -59,22 +58,29 @@ void Button::scanState(){
           bPush = 0;
           _trigPush2 = 0;
         }
-    if(_lastPush2 - _lastPush > _delayDouble && _trigPush2 == 1) bPush = 1;
+    if(_lastPush + _delayDouble < _lastPush2 && _trigPush2 == 1) bPush = 1;
     else bPush = 0;
     _trigHold = 0;
     bHold = 0;
     bDouble = 0;
     }
+  returned();
   }
 void Button::setPinDelay(byte pin, int delayDouble, int delayHold){
   _pin = pin;
   _delayDouble = delayDouble;
   _delayHold = delayHold;
-  pinMode(_pin,INPUT_PULLUP);
+  pinMode(_pin,INPUT/*_PULLUP*/);
 }
 Button::Button(byte pin, int delayDouble, int delayHold){
   _pin = pin;
   _delayDouble = delayDouble;
   _delayHold = delayHold;
-  pinMode(_pin,INPUT_PULLUP);
+  pinMode(_pin,INPUT/*_PULLUP*/);
+}
+void Button::returned(){
+  if (bPush == 1) bState = 1;
+  else if (bDouble == 1) bState = 2;
+  else if (bHold == 1) bState = 3;
+  else bState = 0;
 }

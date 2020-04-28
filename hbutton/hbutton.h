@@ -16,8 +16,10 @@ class Button{
     bool bPush;
     bool bDouble;
     bool bHold;
+    byte bState;
     void scanState();
     void setPinDelay(byte pin, int delayDouble, int delayHold);
+    void returned();
 
   private:
     long _lastPush;

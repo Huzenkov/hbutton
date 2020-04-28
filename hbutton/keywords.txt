@@ -5,3 +5,4 @@ setPinDelay	KEYWORD2
 bPush	KEYWORD2
 bDouble	KEYWORD2
 bHold	KEYWORD2
+bState	KEYWORD2
